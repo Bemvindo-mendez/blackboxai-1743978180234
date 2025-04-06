@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h3 class="mb-0">{{event.id ? 'Modifier' : 'Créer'}} un Événement</h3>
+  </div>
+  <div class="card-body">
+    <form ng-submit="saveEvent()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Titre</label>
+        <input type="text" class="form-control" id="title" ng-model="event.title" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" ng-model="event.description" rows="3" required></textarea>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="date" class="form-label">Date</label>
+          <input type="date" class="form-control" id="date" ng-model="event.date" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="time" class="form-label">Heure</label>
+          <input type="time" class="form-control" id="time" ng-model="event.time">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Lieu</label>
+        <input type="text" class="form-control" id="location" ng-model="event.location" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Catégorie</label>
+        <select class="form-select" id="category" ng-model="event.category" required>
+          <option value="">Sélectionnez une catégorie</option>
+          <option value="conférence">Conférence</option>
+          <option value="formation">Formation</option>
+          <option value="réunion">Réunion</option>
+          <option value="social">Événement social</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary me-2" ng-click="cancel()">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
