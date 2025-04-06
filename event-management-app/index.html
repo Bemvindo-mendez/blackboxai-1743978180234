@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Événements</title>
+  <!-- Angular CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+    .event-card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body ng-app="eventApp">
+  <div class="container">
+    <h1 class="text-center mb-4">Application de Gestion des Événements</h1>
+    
+    <div ng-view></div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Angular Route -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <!-- Moment.js pour la gestion des dates -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <!-- FullCalendar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+  
+  <!-- Notre application -->
+  <script src="app.js"></script>
+  
+  <script>
+    // Configuration de l'application Angular
+    (function() {
+      'use strict';
+      
+      var app = angular.module('eventApp', ['ngRoute']);
+      
+      app.config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+          .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
+          })
+          .when('/register', {
+            templateUrl: 'views/register.html',
+            controller: 'RegisterController'
+          })
+          .when('/events', {
+            templateUrl: 'views/events.html',
+            controller: 'EventsController'
+          })
+          .when('/events/new', {
+            templateUrl: 'views/event-form.html',
+            controller: 'EventFormController'
+          })
+          .when('/events/:id', {
+            templateUrl: 'views/event-details.html',
+            controller: 'EventDetailsController'
+          })
+          .when('/events/:id/edit', {
+            templateUrl: 'views/event-form.html',
+            controller: 'EventFormController'
+          })
+          .otherwise({
+            redirectTo: '/login'
+          });
+      }]);
+      
+      app.filter('calendar', function() {
+        return function(input) {
+          return moment(input).calendar();
+        };
+      });
+    })();
+  </script>
+</body>
+</html>
