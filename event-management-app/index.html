@@ -21,8 +21,21 @@
 </head>
 <body ng-app="eventApp">
   <div class="container">
-    <h1 class="text-center mb-4">Application de Gestion des Événements</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#/events">Gestion Événements</a>
+        <div class="navbar-nav">
+          <a class="nav-link" href="#/events" ng-if="isLoggedIn()">Événements</a>
+          <a class="nav-link" href="#/events/new" ng-if="isLoggedIn()">Créer Événement</a>
+          <a class="nav-link" href="#/admin" ng-if="isAdmin()">Admin</a>
+          <a class="nav-link" href="#/login" ng-if="!isLoggedIn()">Connexion</a>
+          <a class="nav-link" href="#/register" ng-if="!isLoggedIn()">Inscription</a>
+          <a class="nav-link" href="#" ng-click="logout()" ng-if="isLoggedIn()">Déconnexion</a>
+        </div>
+      </div>
+    </nav>
     
+    <h1 class="text-center mb-4">Application de Gestion des Événements</h1>
     <div ng-view></div>
   </div>
 
@@ -36,53 +49,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
   
-  <!-- Notre application -->
+  <!-- Our application scripts -->
+  <script src="src/services/EventService.js"></script>
   <script src="app.js"></script>
-  
-  <script>
-    // Configuration de l'application Angular
-    (function() {
-      'use strict';
-      
-      var app = angular.module('eventApp', ['ngRoute']);
-      
-      app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider
-          .when('/login', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginController'
-          })
-          .when('/register', {
-            templateUrl: 'views/register.html',
-            controller: 'RegisterController'
-          })
-          .when('/events', {
-            templateUrl: 'views/events.html',
-            controller: 'EventsController'
-          })
-          .when('/events/new', {
-            templateUrl: 'views/event-form.html',
-            controller: 'EventFormController'
-          })
-          .when('/events/:id', {
-            templateUrl: 'views/event-details.html',
-            controller: 'EventDetailsController'
-          })
-          .when('/events/:id/edit', {
-            templateUrl: 'views/event-form.html',
-            controller: 'EventFormController'
-          })
-          .otherwise({
-            redirectTo: '/login'
-          });
-      }]);
-      
-      app.filter('calendar', function() {
-        return function(input) {
-          return moment(input).calendar();
-        };
-      });
-    })();
-  </script>
 </body>
 </html>
